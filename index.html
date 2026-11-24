@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Murilo Oliveira · muriloo.ads</title>
+<meta name="description" content="Murilo Oliveira: sites que vendem, tráfego pago (Meta Ads) e sistemas sob medida. Brasília, DF.">
+<meta name="theme-color" content="#07030B">
+<meta property="og:title" content="Murilo Oliveira · muriloo.ads">
+<meta property="og:description" content="Sites que vendem + tráfego pago que traz cliente.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2307030B'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23FF2E88'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23B6FF3B'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#07030B;--ink:#0A0A0A;--paper:#FFFBF0;--lime:#B6FF3B;--pink:#FF4F7B;--hot:#FF2E88;--yel:#FFD21F;--pur:#A88BFF;--grn:#3DDC4B;--mut:#8F7BB8;--txt:#F4E9FF;
+--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono','Courier New',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font:15px/1.6 var(--mono);overflow-x:hidden}
+a{color:inherit}
+.skip{position:absolute;left:-999px;top:8px;background:var(--lime);color:var(--ink);padding:8px 12px;z-index:50}
+.skip:focus{left:8px}
+/* topo */
+header{position:fixed;inset:0 0 auto;z-index:20;display:flex;justify-content:space-between;align-items:flex-start;padding:14px 20px;font-size:12px;color:var(--lime);pointer-events:none;border-top:1px solid rgba(182,255,59,.5)}
+header a{pointer-events:auto;text-decoration:none}
+header .r{text-align:right;line-height:1.5}
+/* palco ASCII */
+#palco{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;cursor:crosshair;touch-action:pan-y}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 2px,transparent 2px 4px)}
+.hud{position:absolute;left:0;right:0;bottom:0;padding:0 20px 26px;text-align:center;pointer-events:none;background:linear-gradient(transparent,rgba(7,3,11,.92) 45%)}
+h1{font:400 clamp(34px,8vw,92px)/1 var(--mono);color:var(--lime);letter-spacing:.04em;text-shadow:4px 4px 0 #3a0f2a;margin-top:60px}
+h1 .cur{animation:pisca 1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.sub{color:#FF6FA8;font-size:clamp(13px,2vw,17px);margin-top:10px}
+.cenas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px;pointer-events:auto}
+.cenas button{font:700 12px var(--mono);letter-spacing:.06em;color:var(--txt);background:#160a22;border:2px solid #3b2457;padding:8px 12px;cursor:pointer}
+.cenas button[aria-pressed=true]{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.cenas button:focus-visible{outline:2px solid var(--yel);outline-offset:2px}
+.dica{font-size:12px;color:var(--mut);margin-top:10px}
+/* seções */
+main section{max-width:1100px;margin:0 auto;padding:90px 20px}
+.tag{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:var(--lime);letter-spacing:.12em;text-transform:uppercase}
+.tag::before{content:"";width:8px;height:8px;background:var(--lime)}
+h2{font:400 clamp(28px,5vw,52px)/1.05 var(--mono);color:#fff;margin:14px 0 30px;letter-spacing:-.01em}
+h2 em{font-style:normal;color:var(--hot)}
+.term{background:#0E0A1A;border:2px solid #2a1c44;padding:22px;font-size:14px;color:#d9c9ff;overflow-x:auto}
+.term .p{color:var(--lime)}
+.term .o{color:#FF8FB8}
+/* cards brutalistas */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px}
+.card{position:relative;display:block;text-decoration:none;color:var(--ink);background:var(--c2);border-radius:18px;padding:52px 30px 30px;overflow:hidden}
+.card::before{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:var(--c1)}
+.box{position:relative;background:var(--paper);border:4px solid var(--ink);border-radius:10px;padding:22px;box-shadow:10px 10px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.aba{position:absolute;top:-30px;left:-4px;background:var(--c1);border:3px solid var(--ink);border-radius:6px 6px 0 0;padding:4px 12px 6px;font-size:11px;font-weight:800;letter-spacing:.06em;box-shadow:6px 0 0 var(--ink)}
+.card:hover .box,.card:focus-visible .box{transform:translate(-4px,-4px);box-shadow:14px 14px 0 var(--ink)}
+.card:active .box{transform:translate(6px,6px);box-shadow:4px 4px 0 var(--ink)}
+.card:focus-visible{outline:3px solid var(--lime);outline-offset:4px}
+.ic{width:64px;height:64px;border:3px solid var(--ink);border-radius:8px;background:var(--c1);display:grid;place-items:center;font-size:30px;float:left;margin:0 16px 8px 0}
+.card h3{font:800 22px/1.15 var(--mono);letter-spacing:.02em;text-transform:uppercase}
+.card .nota{font-size:12px;color:#555}
+.card p{clear:both;padding-top:10px;font-size:14px;color:#222}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chips span{border:2px solid var(--ink);border-radius:4px;font-size:12px;font-weight:700;padding:2px 8px;background:#fff}
+.vai{display:inline-block;margin-top:16px;font-weight:800;font-size:13px;background:var(--c1);border:3px solid var(--ink);padding:6px 12px;box-shadow:4px 4px 0 var(--ink)}
+/* habilidades */
+.skills{border:2px dashed var(--lime);border-radius:14px;padding:26px;background:#0E0A1A}
+.sk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) 40px;gap:14px;align-items:center;margin:12px 0;font-weight:700}
+.bar{display:flex;gap:4px}
+.bar i{flex:1;height:18px;background:#1E1830;border:2px solid var(--ink)}
+.bar i.on{background:var(--k)}
+.sk b{text-align:right;color:var(--k)}
+/* serviços */
+.serv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.serv div{border:2px solid #2a1c44;background:#0E0A1A;padding:20px;transition:border-color .2s,transform .2s}
+.serv div:hover{border-color:var(--hot);transform:translateY(-4px)}
+.serv b{display:block;color:var(--yel);font-size:13px;margin-bottom:6px}
+.serv h3{font-size:17px;color:#fff;margin-bottom:6px}
+.serv p{font-size:13px;color:var(--mut)}
+/* passos */
+.passos{list-style:none;display:grid;gap:10px;counter-reset:p}
+.passos li{counter-increment:p;display:grid;grid-template-columns:54px 1fr;gap:16px;align-items:center;border-bottom:1px dashed #2a1c44;padding:12px 0}
+.passos li::before{content:"0" counter(p);font-size:26px;color:var(--hot)}
+/* CTA */
+.cta{text-align:center;padding:120px 20px 140px}
+.press{font:400 clamp(36px,8vw,88px)/1 var(--mono);color:var(--yel);animation:pisca 1.2s steps(1) infinite}
+.btn{display:inline-block;margin-top:34px;font:800 16px var(--mono);letter-spacing:.06em;color:var(--ink);background:var(--lime);border:3px solid var(--ink);padding:16px 26px;box-shadow:8px 8px 0 var(--hot);text-decoration:none;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:11px 11px 0 var(--hot)}
+.btn:active{transform:translate(5px,5px);box-shadow:3px 3px 0 var(--hot)}
+.btn:focus-visible{outline:3px solid var(--yel);outline-offset:4px}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:30px 20px 40px;border-top:1px solid #1E1830}
+footer a{color:var(--lime)}
+/* rastro do cursor */
+.rastro{position:fixed;pointer-events:none;font-size:14px;z-index:30;animation:some .8s forwards}
+@keyframes some{to{opacity:0;transform:translateY(18px)}}
+/* modo dev (código konami) */
+#dev{position:fixed;inset:auto 20px 20px auto;z-index:40;background:var(--lime);color:var(--ink);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--hot);padding:12px 16px;font-weight:800;display:none}
+.revela{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.revela.on{opacity:1;transform:none}
+@media (max-width:820px){.cards{grid-template-columns:1fr}.serv{grid-template-columns:1fr 1fr}.sk{grid-template-columns:1fr;gap:6px}.sk b{text-align:left}}
+@media (max-width:480px){.serv{grid-template-columns:1fr}header .r{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.revela{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header><a href="#topo">MURILOO.ADS &nbsp;×××</a><div class="r">SE VOCÊ QUER VENDER MAIS,<br>VOCÊ ESTÁ NO LUGAR CERTO.</div></header>
+
+<div id="palco" aria-label="Arte ASCII interativa">
+  <canvas id="c" aria-hidden="true"></canvas>
+  <div class="scan"></div>
+  <div class="hud" id="topo">
+    <h1>MURILOO.ADS<span class="cur">█</span></h1>
+    <p class="sub">&gt; sites que vendem · tráfego pago · sistemas sob medida</p>
+    <div class="cenas" role="group" aria-label="Escolher a arte">
+      <button type="button" data-c="0" aria-pressed="true">[1] OLHO</button>
+      <button type="button" data-c="1" aria-pressed="false">[2] PLANETA</button>
+      <button type="button" data-c="2" aria-pressed="false">[3] TÚNEL</button>
+      <button type="button" data-c="3" aria-pressed="false">[4] CORAÇÃO</button>
+    </div>
+    <p class="dica">mexa o mouse · arraste o planeta · clique para trocar</p>
+  </div>
+</div>
+
+<main id="conteudo">
+  <section class="revela">
+    <span class="tag">whoami</span>
+    <h2>Sites que vendem.<br><em>Anúncios que trazem gente.</em></h2>
+    <pre class="term"><span class="p">murilo@muriloo-ads:~$</span> whoami
+<span class="o">&gt; Murilo Oliveira · dev web + gestor de tráfego · Brasília, DF</span>
+
+<span class="p">murilo@muriloo-ads:~$</span> echo $DIFERENCIAL
+<span class="o">&gt; o site já nasce pensando no anúncio que vai trazer gente para ele_</span></pre>
+  </section>
+
+  <section class="revela">
+    <span class="tag">o que eu faço</span>
+    <h2>Escolha seu <em>power-up.</em></h2>
+    <div class="serv">
+      <div><b>01</b><h3>Sites e landing pages</h3><p>Rápidos, bonitos e feitos para converter visita em cliente.</p></div>
+      <div><b>02</b><h3>Tráfego pago</h3><p>Campanhas no Meta Ads (Instagram e Facebook) para vender mais.</p></div>
+      <div><b>03</b><h3>Sistemas sob medida</h3><p>Área do aluno, CRM, painel admin, cardápio digital.</p></div>
+      <div><b>04</b><h3>Social e vídeo</h3><p>Social media e edição de vídeo para a marca aparecer sempre.</p></div>
+    </div>
+  </section>
+
+  <section class="revela" id="projetos">
+    <span class="tag">projetos</span>
+    <h2>Fases <em>concluídas.</em></h2>
+    <div class="cards">
+      <a class="card" href="https://fvconsultoriaconcursos.com.br" target="_blank" rel="noopener" style="--c1:#FF4F7B;--c2:#FFD21F">
+        <div class="box"><span class="aba">● CLIENTE REAL</span><div class="ic">🎓</div><h3>FV Consultoria</h3><span class="nota">fvconsultoriaconcursos.com.br</span>
+        <p>Site de vendas e plataforma de estudos para concursos: login, banco de questões, simulados e aulas publicadas direto do Word.</p>
+        <div class="chips"><span>PHP</span><span>MySQL</span><span>JavaScript</span></div><span class="vai">VER SITE ▶</span></div></a>
+      <div class="card" style="--c1:#3DDC4B;--c2:#7B61FF">
+        <div class="box"><span class="aba">● CÓDIGO PRIVADO</span><div class="ic">💬</div><h3>CRM Multiunidade</h3><span class="nota">sofás e colchões · Brasília</span>
+        <p>Rede de lojas com várias unidades e linhas de WhatsApp num painel só, ligado à API oficial do WhatsApp (Meta).</p>
+        <div class="chips"><span>Supabase</span><span>WhatsApp API</span><span>Vercel</span></div><span class="vai">CASE ▶</span></div></div>
+      <a class="card" href="https://github.com/muriloo-ads/dgustesaas" target="_blank" rel="noopener" style="--c1:#FFD21F;--c2:#FF4F7B">
+        <div class="box"><span class="aba">● DEMO</span><div class="ic">🍔</div><h3>Dguste</h3><span class="nota">cardápio + pedidos</span>
+        <p>Cardápio digital de hamburgueria com carrinho, pedido pelo WhatsApp, cupons e painel administrativo.</p>
+        <div class="chips"><span>React</span><span>Firebase</span><span>Vite</span></div><span class="vai">CÓDIGO ▶</span></div></a>
+      <a class="card" href="https://github.com/muriloo-ads/bytebank-api-design-patterns" target="_blank" rel="noopener" style="--c1:#A88BFF;--c2:#3DDC4B">
+        <div class="box"><span class="aba">● ESTUDO</span><div class="ic">🏦</div><h3>ByteBank API</h3><span class="nota">desafio DIO</span>
+        <p>API REST bancária em Java e Spring Boot com padrões de projeto: Singleton, Facade e injeção de dependência.</p>
+        <div class="chips"><span>Java</span><span>Spring Boot</span><span>Gradle</span></div><span class="vai">CÓDIGO ▶</span></div></a>
+    </div>
+  </section>
+
+  <section class="revela">
+    <span class="tag">player 1</span>
+    <h2>Atributos do <em>personagem.</em></h2>
+    <div class="skills" id="skills">
+      <div class="sk" style="--k:#FF4F7B">SITES &amp; LANDING PAGES<div class="bar" data-v="95"></div><b>95</b></div>
+      <div class="sk" style="--k:#FFD21F">TRÁFEGO PAGO · META ADS<div class="bar" data-v="90"></div><b>90</b></div>
+      <div class="sk" style="--k:#A88BFF">SISTEMAS SOB MEDIDA<div class="bar" data-v="80"></div><b>80</b></div>
+      <div class="sk" style="--k:#3DDC4B">SOCIAL MEDIA &amp; VÍDEO<div class="bar" data-v="75"></div><b>75</b></div>
+    </div>
+  </section>
+
+  <section class="revela">
+    <span class="tag">como funciona</span>
+    <h2>Do zero ao <em>cliente chegando.</em></h2>
+    <ol class="passos">
+      <li><span><b>Conversa rápida</b> no Instagram para entender o seu negócio.</span></li>
+      <li><span><b>Proposta</b> com prazo e valor fechados.</span></li>
+      <li><span><b>Site no ar</b> com domínio, hospedagem e tudo configurado.</span></li>
+      <li><span><b>Anúncios</b> (se quiser) para levar clientes até ele.</span></li>
+    </ol>
+  </section>
+
+  <section class="cta">
+    <div class="press">PRESS START</div>
+    <p class="sub" style="margin-top:18px">INSERT COIN → chama no direct e peça seu orçamento</p>
+    <a class="btn" href="https://ig.me/m/muriloo.ads" target="_blank" rel="noopener">▶ PEDIR ORÇAMENTO</a>
+  </section>
+</main>
+<footer>© Murilo Oliveira · <a href="https://instagram.com/muriloo.ads" target="_blank" rel="noopener">@muriloo.ads</a> · <a href="https://github.com/muriloo-ads">github</a> · dica: ↑↑↓↓←→←→BA</footer>
+<div id="dev" role="status">MODO DEV ATIVADO ✦ obrigado por explorar!</div>
+
+<script>
+(() => {
+  const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  const palco = document.getElementById('palco');
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const RAMP = ' .,:;-~=+*cox%#&@';
+  const PAL = ['#3a0f2a','#5B1B8F','#9B4DFF','#C2185B','#FF2E88','#FF6A3D','#FF8A3D','#FFB347','#FFE14D','#FFF3F8'];
+  let W, H, cols, rows, cw, ch, fs;
+  let cena = 0, t = 0, mx = .5, my = .5, rotX = 0, arr = null, vel = .004;
+  function tam() {
+    const r = palco.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+    fs = W < 600 ? 9 : 12; cw = fs * .6; ch = fs; cols = Math.ceil(W / cw); rows = Math.ceil(H / ch);
+    ctx.font = fs + 'px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace'; ctx.textBaseline = 'top';
+  }
+  // ruído simples
+  const h = (x, y) => { const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return s - Math.floor(s); };
+  const ns = (x, y) => { const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+    const a = h(xi, yi), b = h(xi + 1, yi), c = h(xi, yi + 1), d = h(xi + 1, yi + 1);
+    const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; };
+  // cada cena devolve [brilho 0..1, cor 0..9]
+  function olho(nx, ny) {
+    const aspect = W / H, k = Math.min(1, .46 * aspect / .62), x = nx * aspect / k, y = ny / k;
+    const blink = (Math.sin(t * .9 + 2) > .993) ? 0.12 : 1;
+    const ew = .62, eh = .34 * blink, dx = x / ew, lim = eh * Math.pow(Math.max(0, 1 - dx * dx), .9);
+    if (Math.abs(dx) < 1 && Math.abs(y) < lim) {
+      const px = (mx - .5) * .16, py = (my - .5) * .1;
+      const ix = x - px, iy = y - py, r = Math.hypot(ix, iy), a = Math.atan2(iy, ix);
+      if (r < .07) return [0, 0];
+      if (r < .3) { const ring = Math.sin(r * 90 - t * 3) * .5 + .5, fib = ns(a * 6 + t * .4, r * 20);
+        return [.45 + .5 * (ring * .5 + fib * .5), 9 - Math.min(8, Math.floor(r / .3 * 7) + 1)]; }
+      return [.2 + .2 * ns(x * 20, y * 20) * (1 - Math.abs(dx)), 9];
+    }
+    const d = Math.hypot(x / 1.4, y), v = Math.max(0, 1 - d / 1.1) ** 1.4 * (.7 + .3 * ns(x * 8 + t * .2, y * 8));
+    return [v, 3 + Math.floor(v * 4)];
+  }
+  function planeta(nx, ny) {
+    const aspect = W / H, R = Math.min(.36, .44 * aspect), x = nx * aspect / R, y = ny / R, r2 = x * x + y * y;
+    if (r2 > 1) { const s = h(Math.floor(nx * 300), Math.floor(ny * 300)); return s > .995 ? [.9, 9] : [0, 0]; }
+    const z = Math.sqrt(1 - r2), lon = Math.atan2(x, z) + rotX, lat = Math.asin(y);
+    const land = ns(lon * 2.2 + 10, lat * 3) * .7 + ns(lon * 6, lat * 6) * .3;
+    const lx = (mx - .5) * 1.6, ly = (my - .5) * 1.2, luz = Math.max(.08, (x * -lx + y * -ly + z * .9) / 1.5 + .35);
+    const nuvem = ns(lon * 4 - t * .3, lat * 8) > .72;
+    if (nuvem) return [Math.min(1, luz + .2), 9];
+    return land > .5 ? [luz * .95, 5 + Math.floor(luz * 3)] : [luz * .7, 1 + Math.floor(luz * 3)];
+  }
+  function tunel(nx, ny) {
+    const x = nx * W / H - (mx - .5) * .4, y = ny - (my - .5) * .3, r = Math.hypot(x, y) + .001, a = Math.atan2(y, x);
+    const u = .25 / r + t * .8, v = a / Math.PI * 4 + t * .15, s = (Math.floor(u * 2) + Math.floor(v * 2)) & 1;
+    const fade = Math.min(1, r * 2.2);
+    return [(.35 + .6 * s) * fade, Math.floor(((u % 1) * 6 + 2)) % 9 + 1];
+  }
+  function coracao(nx, ny) {
+    const p = 1 + .08 * Math.sin(t * 4) * (Math.sin(t * 4) > 0 ? 1 : .3);
+    const x = nx * W / H * 1.3 / p, y = -ny * 1.3 / p + .15;
+    const f = (x * x + y * y - .25) ** 3 - x * x * y * y * y * 1.1;
+    if (f < 0) { const d = Math.hypot(x, y - .1); return [.55 + .45 * (ns(x * 10 + t, y * 10) * .6 + (1 - d) * .4), 4 + Math.floor((1 - d) * 4)]; }
+    const g = ns(nx * 6 + t * .3, ny * 6 - t * .2);
+    return g > .78 ? [.5, 2] : [Math.max(0, .25 - Math.hypot(x, y) * .15), 1];
+  }
+  const CENAS = [olho, planeta, tunel, coracao];
+  function quadro() {
+    ctx.fillStyle = '#07030B'; ctx.fillRect(0, 0, W, H);
+    const f = CENAS[cena];
+    for (let r = 0; r < rows; r++) {
+      const ny = (r * ch + ch / 2 - H / 2) / H;
+      let lastC = -1, buf = '', bx = 0;
+      for (let c = 0; c < cols; c++) {
+        const nx = (c * cw + cw / 2 - W / 2) / W;
+        const [v, k] = f(nx, ny);
+        const chr = RAMP[Math.max(0, Math.min(RAMP.length - 1, Math.floor(v * (RAMP.length - 1))))];
+        if (k !== lastC) { if (buf) { ctx.fillStyle = PAL[lastC]; ctx.fillText(buf, bx, r * ch); } buf = ''; bx = c * cw; lastC = k; }
+        buf += chr;
+      }
+      if (buf.trim()) { ctx.fillStyle = PAL[lastC]; ctx.fillText(buf, bx, r * ch); }
+    }
+  }
+  let ult = 0;
+  function loop(ms) {
+    if (ms - ult > 33) { t += .033; if (!arr) rotX += vel; quadro(); ult = ms; }
+    if (!reduz) requestAnimationFrame(loop);
+  }
+  tam(); addEventListener('resize', () => { tam(); if (reduz) quadro(); });
+  if (reduz) quadro(); else requestAnimationFrame(loop);
+  // interação
+  palco.addEventListener('pointermove', e => { const r = palco.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width; my = (e.clientY - r.top) / r.height;
+    if (arr) { rotX = arr.rot + (e.clientX - arr.x) * .01; } });
+  palco.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; arr = { x: e.clientX, rot: rotX, t: Date.now() }; });
+  addEventListener('pointerup', e => { if (!arr) return; const rapido = Date.now() - arr.t < 220 && Math.abs(e.clientX - arr.x) < 6; arr = null; if (rapido && !e.target.closest('button')) troca((cena + 1) % 4); });
+  const btns = [...document.querySelectorAll('.cenas button')];
+  function troca(n) { cena = n; btns.forEach((b, i) => b.setAttribute('aria-pressed', String(i === n))); if (reduz) quadro(); }
+  btns.forEach(b => b.addEventListener('click', () => troca(+b.dataset.c)));
+  addEventListener('keydown', e => { if (['1','2','3','4'].includes(e.key) && !e.target.closest('input,textarea')) troca(+e.key - 1); });
+  // rastro de caracteres no cursor
+  if (!reduz && matchMedia('(pointer:fine)').matches) {
+    let lt = 0; const cores = ['#FF2E88','#FFB347','#B6FF3B','#A88BFF'];
+    addEventListener('pointermove', e => { const n = performance.now(); if (n - lt < 45) return; lt = n;
+      const s = document.createElement('span'); s.className = 'rastro'; s.textContent = '*+x•:'[Math.floor(Math.random() * 5)];
+      s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px'; s.style.color = cores[Math.floor(Math.random() * 4)];
+      document.body.appendChild(s); setTimeout(() => s.remove(), 800); });
+  }
+  // barras de habilidade
+  document.querySelectorAll('.bar').forEach(b => { const v = +b.dataset.v; for (let i = 0; i < 20; i++) { const x = document.createElement('i'); if (i < Math.round(v / 5)) x.dataset.on = 1; b.appendChild(x); } });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add('on');
+    e.target.querySelectorAll('.bar i[data-on]').forEach((x, i) => setTimeout(() => x.classList.add('on'), reduz ? 0 : i * 40)); io.unobserve(e.target); }), { threshold: .2 });
+  document.querySelectorAll('.revela').forEach(s => io.observe(s));
+  // código konami
+  const K = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a']; let kp = 0;
+  addEventListener('keydown', e => { kp = (e.key === K[kp] || e.key.toLowerCase() === K[kp]) ? kp + 1 : 0;
+    if (kp === K.length) { kp = 0; const d = document.getElementById('dev'); d.style.display = 'block'; vel = .03; troca(2); setTimeout(() => { d.style.display = 'none'; vel = .004; }, 4000); } });
+})();
+</script>
+</body>
+</html>
