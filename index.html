@@ -79,6 +79,21 @@ h2 em{font-style:normal;color:var(--hot)}
 .passos{list-style:none;display:grid;gap:10px;counter-reset:p}
 .passos li{counter-increment:p;display:grid;grid-template-columns:54px 1fr;gap:16px;align-items:center;border-bottom:1px dashed #2a1c44;padding:12px 0}
 .passos li::before{content:"0" counter(p);font-size:26px;color:var(--hot)}
+/* abas */
+.painel{padding-top:70px}
+.abas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
+.abas button{font:800 13px var(--mono);letter-spacing:.08em;color:var(--txt);background:#0E0A1A;border:3px solid #2a1c44;padding:12px 18px;cursor:pointer;transition:transform .12s,box-shadow .12s,background .12s}
+.abas button:hover{border-color:var(--hot)}
+.abas button[aria-selected=true]{background:var(--lime);color:var(--ink);border-color:var(--ink);box-shadow:6px 6px 0 var(--hot);transform:translate(-2px,-2px)}
+.abas button:focus-visible{outline:3px solid var(--yel);outline-offset:3px}
+[role=tabpanel]{animation:entra .35s ease-out}
+@keyframes entra{from{opacity:0;transform:translateY(10px)}}
+[hidden]{display:none!important}
+.contato{display:flex;flex-wrap:wrap;gap:22px;align-items:center}
+.contato .btn{margin-top:0}
+.contato .dica{flex-basis:100%}
+.btn.alt{background:var(--paper);box-shadow:8px 8px 0 var(--pur)}
+.cta .btn{margin-top:30px}
 /* CTA */
 .cta{text-align:center;padding:120px 20px 140px}
 .press{font:400 clamp(36px,8vw,88px)/1 var(--mono);color:var(--yel);animation:pisca 1.2s steps(1) infinite}
@@ -121,30 +136,15 @@ footer a{color:var(--lime)}
 </div>
 
 <main id="conteudo">
-  <section class="revela">
-    <span class="tag">whoami</span>
-    <h2>Sites que vendem.<br><em>Anúncios que trazem gente.</em></h2>
-    <pre class="term"><span class="p">murilo@muriloo-ads:~$</span> whoami
-<span class="o">&gt; Murilo Oliveira · dev web + gestor de tráfego · Brasília, DF</span>
-
-<span class="p">murilo@muriloo-ads:~$</span> echo $DIFERENCIAL
-<span class="o">&gt; o site já nasce pensando no anúncio que vai trazer gente para ele_</span></pre>
-  </section>
-
-  <section class="revela">
-    <span class="tag">o que eu faço</span>
-    <h2>Escolha seu <em>power-up.</em></h2>
-    <div class="serv">
-      <div><b>01</b><h3>Sites e landing pages</h3><p>Rápidos, bonitos e feitos para converter visita em cliente.</p></div>
-      <div><b>02</b><h3>Tráfego pago</h3><p>Campanhas no Meta Ads (Instagram e Facebook) para vender mais.</p></div>
-      <div><b>03</b><h3>Sistemas sob medida</h3><p>Área do aluno, CRM, painel admin, cardápio digital.</p></div>
-      <div><b>04</b><h3>Social e vídeo</h3><p>Social media e edição de vídeo para a marca aparecer sempre.</p></div>
+  <section class="painel revela">
+    <div class="abas" role="tablist" aria-label="Seções">
+      <button role="tab" id="t-projetos" aria-controls="projetos" aria-selected="true">PROJETOS</button>
+      <button role="tab" id="t-servicos" aria-controls="servicos" aria-selected="false" tabindex="-1">SERVIÇOS</button>
+      <button role="tab" id="t-processo" aria-controls="processo" aria-selected="false" tabindex="-1">COMO FUNCIONA</button>
+      <button role="tab" id="t-contato" aria-controls="contato" aria-selected="false" tabindex="-1">CONTATO</button>
     </div>
-  </section>
 
-  <section class="revela" id="projetos">
-    <span class="tag">projetos</span>
-    <h2>Fases <em>concluídas.</em></h2>
+    <div role="tabpanel" id="projetos" aria-labelledby="t-projetos" tabindex="0">
     <div class="cards">
       <a class="card" href="https://fvconsultoriaconcursos.com.br" target="_blank" rel="noopener" style="--c1:#FF4F7B;--c2:#FFD21F">
         <div class="box"><span class="aba">● CLIENTE REAL</span><div class="ic">🎓</div><h3>FV Consultoria</h3><span class="nota">fvconsultoriaconcursos.com.br</span>
@@ -153,7 +153,7 @@ footer a{color:var(--lime)}
       <div class="card" style="--c1:#3DDC4B;--c2:#7B61FF">
         <div class="box"><span class="aba">● CÓDIGO PRIVADO</span><div class="ic">💬</div><h3>CRM Multiunidade</h3><span class="nota">sofás e colchões · Brasília</span>
         <p>Rede de lojas com várias unidades e linhas de WhatsApp num painel só, ligado à API oficial do WhatsApp (Meta).</p>
-        <div class="chips"><span>Supabase</span><span>WhatsApp API</span><span>Vercel</span></div><span class="vai">CASE ▶</span></div></div>
+        <div class="chips"><span>Supabase</span><span>WhatsApp API</span><span>Vercel</span></div></div></div>
       <a class="card" href="https://github.com/muriloo-ads/dgustesaas" target="_blank" rel="noopener" style="--c1:#FFD21F;--c2:#FF4F7B">
         <div class="box"><span class="aba">● DEMO</span><div class="ic">🍔</div><h3>Dguste</h3><span class="nota">cardápio + pedidos</span>
         <p>Cardápio digital de hamburgueria com carrinho, pedido pelo WhatsApp, cupons e painel administrativo.</p>
@@ -163,37 +163,41 @@ footer a{color:var(--lime)}
         <p>API REST bancária em Java e Spring Boot com padrões de projeto: Singleton, Facade e injeção de dependência.</p>
         <div class="chips"><span>Java</span><span>Spring Boot</span><span>Gradle</span></div><span class="vai">CÓDIGO ▶</span></div></a>
     </div>
-  </section>
-
-  <section class="revela">
-    <span class="tag">player 1</span>
-    <h2>Atributos do <em>personagem.</em></h2>
-    <div class="skills" id="skills">
-      <div class="sk" style="--k:#FF4F7B">SITES &amp; LANDING PAGES<div class="bar" data-v="95"></div><b>95</b></div>
-      <div class="sk" style="--k:#FFD21F">TRÁFEGO PAGO · META ADS<div class="bar" data-v="90"></div><b>90</b></div>
-      <div class="sk" style="--k:#A88BFF">SISTEMAS SOB MEDIDA<div class="bar" data-v="80"></div><b>80</b></div>
-      <div class="sk" style="--k:#3DDC4B">SOCIAL MEDIA &amp; VÍDEO<div class="bar" data-v="75"></div><b>75</b></div>
     </div>
-  </section>
 
-  <section class="revela">
-    <span class="tag">como funciona</span>
-    <h2>Do zero ao <em>cliente chegando.</em></h2>
+    <div role="tabpanel" id="servicos" aria-labelledby="t-servicos" tabindex="0" hidden>
+    <div class="serv">
+      <div><b>01</b><h3>Sites e landing pages</h3><p>Rápidos, bonitos e feitos para virar contato.</p></div>
+      <div><b>02</b><h3>Tráfego pago</h3><p>Meta Ads no Instagram e Facebook levando a pessoa certa até você.</p></div>
+      <div><b>03</b><h3>Sistemas sob medida</h3><p>Área do aluno, CRM, painel, cardápio digital.</p></div>
+      <div><b>04</b><h3>Social e vídeo</h3><p>Conteúdo e edição para a marca aparecer sempre.</p></div>
+    </div>
+    </div>
+
+    <div role="tabpanel" id="processo" aria-labelledby="t-processo" tabindex="0" hidden>
     <ol class="passos">
-      <li><span><b>Conversa rápida</b> no Instagram para entender o seu negócio.</span></li>
+      <li><span><b>Conversa rápida</b> no WhatsApp para entender o seu negócio.</span></li>
       <li><span><b>Proposta</b> com prazo e valor fechados.</span></li>
-      <li><span><b>Site no ar</b> com domínio, hospedagem e tudo configurado.</span></li>
+      <li><span><b>Site no ar</b> com domínio e hospedagem configurados.</span></li>
       <li><span><b>Anúncios</b> (se quiser) para levar clientes até ele.</span></li>
     </ol>
+    </div>
+
+    <div role="tabpanel" id="contato" aria-labelledby="t-contato" tabindex="0" hidden>
+      <div class="contato">
+        <a class="btn" href="https://wa.me/5561995654440?text=Ol%C3%A1%20Murilo!%20Vim%20pelo%20seu%20GitHub%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener">▶ CHAMAR NO WHATSAPP</a>
+        <a class="btn alt" href="https://ig.me/m/muriloo.ads" target="_blank" rel="noopener">@MURILOO.ADS</a>
+        <p class="dica">(61) 99565-4440 · Brasília, DF · atendo todo o Brasil</p>
+      </div>
+    </div>
   </section>
 
   <section class="cta">
     <div class="press">PRESS START</div>
-    <p class="sub" style="margin-top:18px">INSERT COIN → chama no direct e peça seu orçamento</p>
-    <a class="btn" href="https://ig.me/m/muriloo.ads" target="_blank" rel="noopener">▶ PEDIR ORÇAMENTO</a>
+    <a class="btn" href="https://wa.me/5561995654440?text=Ol%C3%A1%20Murilo!%20Vim%20pelo%20seu%20GitHub%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener">▶ PEDIR ORÇAMENTO NO WHATSAPP</a>
   </section>
 </main>
-<footer>© Murilo Oliveira · <a href="https://instagram.com/muriloo.ads" target="_blank" rel="noopener">@muriloo.ads</a> · <a href="https://github.com/muriloo-ads">github</a> · dica: ↑↑↓↓←→←→BA</footer>
+<footer>© Murilo Oliveira · <a href="https://wa.me/5561995654440?text=Ol%C3%A1%20Murilo!%20Vim%20pelo%20seu%20GitHub%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener">whatsapp</a> · <a href="https://instagram.com/muriloo.ads" target="_blank" rel="noopener">@muriloo.ads</a> · <a href="https://github.com/muriloo-ads">github</a> · dica: ↑↑↓↓←→←→BA</footer>
 <div id="dev" role="status">MODO DEV ATIVADO ✦ obrigado por explorar!</div>
 
 <script>
@@ -298,9 +302,16 @@ footer a{color:var(--lime)}
       document.body.appendChild(s); setTimeout(() => s.remove(), 800); });
   }
   // barras de habilidade
-  document.querySelectorAll('.bar').forEach(b => { const v = +b.dataset.v; for (let i = 0; i < 20; i++) { const x = document.createElement('i'); if (i < Math.round(v / 5)) x.dataset.on = 1; b.appendChild(x); } });
+  // abas
+  const tabs = [...document.querySelectorAll('[role=tab]')];
+  function abre(t, foco) { tabs.forEach(x => { const on = x === t; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1;
+    document.getElementById(x.getAttribute('aria-controls')).hidden = !on; }); if (foco) t.focus(); }
+  tabs.forEach((t, i) => { t.addEventListener('click', () => { abre(t); history.replaceState(null, '', '#' + t.getAttribute('aria-controls')); });
+    t.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d) { e.preventDefault(); abre(tabs[(i + d + tabs.length) % tabs.length], true); } }); });
+  const porHash = () => { const t = tabs.find(x => '#' + x.getAttribute('aria-controls') === location.hash); if (t) { abre(t); setTimeout(() => document.querySelector('.painel').scrollIntoView(), 60); } };
+  addEventListener('hashchange', porHash); porHash();
   const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add('on');
-    e.target.querySelectorAll('.bar i[data-on]').forEach((x, i) => setTimeout(() => x.classList.add('on'), reduz ? 0 : i * 40)); io.unobserve(e.target); }), { threshold: .2 });
+    io.unobserve(e.target); }), { threshold: .1 });
   document.querySelectorAll('.revela').forEach(s => io.observe(s));
   // código konami
   const K = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a']; let kp = 0;
